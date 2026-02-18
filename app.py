@@ -7,13 +7,11 @@ from werkzeug.utils import secure_filename
 import datetime
 from markupsafe import escape
 import os
-from openai import OpenAI
 from flask import request, jsonify
 
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
 
 app = Flask(__name__)
-app.secret_key = os.getenv("OPENAI_API_KEY")   # Change this to something secure
 
 # Load ML model
 model = joblib.load("algaemodel.pkl")
@@ -26,29 +24,7 @@ def get_db_connection():
         database="co2nect"
     )
 
-@app.route("/chatbot", methods=["POST"])
-def chatbot():
-    data = request.get_json()
-    user_message = data.get("message")
 
-    try:
-        response = client.chat.completions.create(
-            model="gpt-4o-mini",   # Fast + cheap + powerful
-            messages=[
-                {"role": "system", "content": "You are an assistant for CO2NECT platform. Help farmers, industrialists, and customers with credits, algae growth, and marketplace questions."},
-                {"role": "user", "content": user_message}
-            ]
-        )
-
-        reply = response.choices[0].message.content
-
-        return jsonify({"reply": reply})
-
-    except Exception as e:
-      print("OPENAI ERROR:", str(e))
-      return jsonify({"reply": str(e)})
-
-    
 @app.route('/')
 def home():
     conn = get_db_connection()
