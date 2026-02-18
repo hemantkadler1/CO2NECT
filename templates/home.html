@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CO2NECT | Home</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+body { font-family: 'Poppins', sans-serif; }
+
+.fade-up {
+    animation: fadeUp 1s ease forwards;
+}
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.glow:hover {
+    box-shadow: 0 25px 50px rgba(34,197,94,0.35);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+</style>
+</head>
+
+<body class="bg-gray-100">
+
+<!-- FLOATING NAVBAR -->
+<nav id="navbar"
+     class="fixed top-6 left-1/2 -translate-x-1/2 z-50
+     w-[92%] max-w-6xl
+     bg-white/70 backdrop-blur-2xl
+     rounded-2xl shadow-xl
+     border border-green-200
+     transition-all duration-300">
+
+    <div class="px-8 py-4 flex items-center justify-between">
+
+        <h1 class="text-2xl font-extrabold
+                   bg-gradient-to-r from-green-600 to-emerald-400
+                   bg-clip-text text-transparent tracking-wide">
+            CO2NECT
+        </h1>
+
+        <ul class="hidden md:flex space-x-10 text-gray-700 font-medium">
+            <li>
+                <a href="/" class="relative group">
+                    Home
+                    <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-green-500 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+            </li>
+
+            <li>
+                <a href="/farmer_signup" class="relative group">
+                    Farmer Signup
+                    <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-green-500 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+            </li>
+
+            <li>
+                <a href="/industrial_signup" class="relative group">
+                    Industrialist Signup
+                    <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-green-500 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+            </li>
+
+            <li>
+                <a href="/consumer_signup" class="relative group">
+                    Consumer Signup
+                    <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-green-500 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- HERO SECTION -->
+<section class="h-screen flex items-center justify-center text-center text-white relative pt-32"
+style="background:linear-gradient(rgba(0,0,0,0.65),rgba(0,0,0,0.65)),url('../static/images/photo-1501004318641-b39e6451bec6.jpeg') center/cover;">
+
+    <div class="fade-up px-6">
+        <h2 class="text-6xl font-extrabold mb-6 leading-tight">
+            Building a Greener Tomorrow
+        </h2>
+        <p class="text-xl max-w-2xl mx-auto opacity-90">
+            Connecting Farmers, Industries, and Consumers through sustainable carbon innovation.
+        </p>
+
+        <a href="#portal"
+           class="inline-block mt-10 px-10 py-4 bg-green-600 hover:bg-green-700 transition rounded-full text-lg font-semibold shadow-xl">
+           Explore Platform
+        </a>
+    </div>
+</section>
+
+<!-- LOGIN CARDS -->
+<section id="portal" class="max-w-6xl mx-auto py-24 px-6">
+    <h2 class="text-4xl font-bold text-center text-green-700 mb-16">Access Your Portal</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+
+        <a href="/farmer_login">
+            <div class="bg-white p-12 rounded-3xl shadow-xl text-center transform hover:-translate-y-4 transition duration-300 glow">
+                <div class="text-6xl mb-6">👨‍🌾</div>
+                <h3 class="text-2xl font-bold text-green-700">Farmer Login</h3>
+                <p class="mt-4 text-gray-500">Track algae growth & manage credits.</p>
+            </div>
+        </a>
+
+        <a href="/industrial_login">
+            <div class="bg-white p-12 rounded-3xl shadow-xl text-center transform hover:-translate-y-4 transition duration-300 glow">
+                <div class="text-6xl mb-6">🏭</div>
+                <h3 class="text-2xl font-bold text-green-700">Industrialist Login</h3>
+                <p class="mt-4 text-gray-500">Purchase verified carbon credits.</p>
+            </div>
+        </a>
+
+        <a href="/consumer_login">
+            <div class="bg-white p-12 rounded-3xl shadow-xl text-center transform hover:-translate-y-4 transition duration-300 glow">
+                <div class="text-6xl mb-6">🛒</div>
+                <h3 class="text-2xl font-bold text-green-700">Consumer Login</h3>
+                <p class="mt-4 text-gray-500">Buy eco-friendly products.</p>
+            </div>
+        </a>
+
+    </div>
+</section>
+
+<!-- STATS SECTION -->
+<section class="bg-green-50 py-24">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 text-center">
+
+        <div class="bg-white p-14 rounded-3xl shadow-xl">
+            <h3 class="text-3xl font-bold text-green-700 mb-6">Total Credits Generated</h3>
+            <div id="creditCounter" class="text-6xl font-extrabold text-green-900">0</div>
+        </div>
+
+        <div class="bg-white p-14 rounded-3xl shadow-xl">
+            <h3 class="text-3xl font-bold text-green-700 mb-6">Total CO₂ Offset (MT)</h3>
+            <div id="co2Counter" class="text-6xl font-extrabold text-green-900">0</div>
+        </div>
+
+    </div>
+</section>
+
+<!-- MODERN PREMIUM FOOTER -->
+<footer class="relative bg-gradient-to-br from-[#0f2f1f] via-[#0b3d2c] to-[#064e3b] text-white pt-24 pb-10 mt-20 overflow-hidden">
+
+    <!-- Decorative Glow Background -->
+    <div class="absolute -top-20 -left-20 w-72 h-72 bg-green-500/20 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 right-0 w-80 h-80 bg-emerald-400/10 rounded-full blur-3xl"></div>
+
+    <div class="relative max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-16">
+
+        <!-- Brand Section -->
+        <div>
+            <h2 class="text-4xl font-extrabold bg-gradient-to-r from-green-400 to-emerald-300 bg-clip-text text-transparent mb-6">
+                CO2NECT
+            </h2>
+            <p class="text-green-200 leading-relaxed">
+                A sustainable carbon intelligence platform connecting farmers,
+                industries, and eco-conscious consumers to build a greener future.
+            </p>
+
+            <!-- Social Icons -->
+            <div class="flex space-x-5 mt-8 text-2xl">
+                <span class="hover:scale-125 transition duration-300 cursor-pointer">🌍</span>
+                <span class="hover:scale-125 transition duration-300 cursor-pointer">🌱</span>
+                <span class="hover:scale-125 transition duration-300 cursor-pointer">♻️</span>
+            </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+            <h3 class="text-xl font-semibold mb-6 text-green-300">Quick Links</h3>
+            <ul class="space-y-3 text-green-200">
+                <li><a href="/" class="hover:text-white transition">Home</a></li>
+                <li><a href="/farmer_signup" class="hover:text-white transition">Farmer Signup</a></li>
+                <li><a href="/industrial_signup" class="hover:text-white transition">Industrial Signup</a></li>
+                <li><a href="/consumer_signup" class="hover:text-white transition">Consumer Signup</a></li>
+            </ul>
+        </div>
+
+        <!-- Contact Info -->
+        <div>
+            <h3 class="text-xl font-semibold mb-6 text-green-300">Contact</h3>
+            <p class="text-green-200 mb-2">📧 support@co2nect.com</p>
+            <p class="text-green-200 mb-6">📞 +91 9876543210</p>
+
+            <div class="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-green-500/30">
+                <p class="text-sm text-green-200">
+                    “Together, we reduce carbon. Together, we restore the planet.”
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Divider -->
+    <div class="border-t border-green-700 mt-16 pt-6 text-center text-green-300 text-sm">
+        © 2025 CO2NECT — All Rights Reserved | Sustainable Future Platform
+    </div>
+
+</footer>
+
+<script>
+const navbar = document.getElementById("navbar");
+
+window.addEventListener("scroll", function () {
+    if (window.scrollY > 50) {
+        navbar.classList.remove("top-6");
+        navbar.classList.add("top-3");
+        navbar.classList.add("shadow-2xl");
+        navbar.style.transform = "translateX(-50%) scale(0.97)";
+    } else {
+        navbar.classList.remove("top-3");
+        navbar.classList.remove("shadow-2xl");
+        navbar.classList.add("top-6");
+        navbar.style.transform = "translateX(-50%) scale(1)";
+    }
+});
+</script>
+<!-- ================= ADVANCED CHATBOT ================= -->
+<div id="chatbotContainer" class="fixed bottom-6 right-6 z-50">
+
+    <!-- Floating Button -->
+    <button onclick="toggleChat()"
+        class="bg-gradient-to-r from-green-600 to-emerald-500
+        text-white p-4 rounded-full shadow-2xl hover:scale-110 transition duration-300">
+        🤖
+    </button>
+
+    <!-- Chat Window -->
+    <div id="chatWindow"
+        class="hidden mt-4 w-80 md:w-96 bg-white rounded-2xl shadow-2xl border border-green-200 overflow-hidden animate-fade">
+
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-green-600 to-emerald-500 text-white p-4 flex justify-between items-center">
+            <div>
+                <h3 class="font-bold text-lg">CO2NECT Assistant</h3>
+                <p class="text-xs opacity-80">Smart Eco Support 🌿</p>
+            </div>
+            <button onclick="toggleChat()" class="text-white font-bold text-xl">✕</button>
+        </div>
+
+        <!-- Messages -->
+        <div id="chatMessages"
+            class="h-72 overflow-y-auto p-4 space-y-3 text-sm bg-green-50">
+
+            <div class="bg-white p-3 rounded-lg shadow max-w-[85%]">
+                👋 Hello! I’m your CO2NECT Assistant.<br>
+                I can help with:
+                <div class="mt-2 flex flex-wrap gap-2">
+                    <button onclick="quickAsk('How do credits work?')" class="bg-green-100 px-2 py-1 rounded text-xs">Credits</button>
+                    <button onclick="quickAsk('How to register as farmer?')" class="bg-green-100 px-2 py-1 rounded text-xs">Farmer</button>
+                    <button onclick="quickAsk('How to buy products?')" class="bg-green-100 px-2 py-1 rounded text-xs">Products</button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Input -->
+        <div class="flex border-t">
+            <input id="chatInput" type="text"
+                placeholder="Ask something..."
+                class="flex-1 p-3 outline-none text-sm"
+                onkeydown="if(event.key==='Enter') sendMessage()">
+            <button onclick="sendMessage()"
+                class="bg-green-600 text-white px-4 hover:bg-green-700 transition">
+                Send
+            </button>
+        </div>
+
+    </div>
+</div>
+
+<script>
+let conversationContext = "";
+
+function toggleChat() {
+    document.getElementById("chatWindow").classList.toggle("hidden");
+}
+
+function quickAsk(text) {
+    document.getElementById("chatInput").value = text;
+    sendMessage();
+}
+
+function addMessage(text, type="bot") {
+    const chatMessages = document.getElementById("chatMessages");
+
+    const msg = document.createElement("div");
+    msg.className = type === "user"
+        ? "bg-green-600 text-white p-3 rounded-lg ml-auto max-w-[80%] break-words"
+        : "bg-white p-3 rounded-lg shadow max-w-[80%] break-words";
+
+    const time = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+
+    msg.innerHTML = text + `<div class="text-[10px] mt-1 opacity-60">${time}</div>`;
+    chatMessages.appendChild(msg);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+function sendMessage() {
+    const input = document.getElementById("chatInput");
+    const message = input.value.trim();
+    if (message === "") return;
+
+    addMessage(message, "user");
+    input.value = "";
+
+    const typing = document.createElement("div");
+    typing.className = "bg-white p-3 rounded-lg shadow max-w-[80%]";
+    typing.innerText = "Typing...";
+    document.getElementById("chatMessages").appendChild(typing);
+
+    setTimeout(() => {
+        typing.remove();
+        const reply = generateReply(message);
+        addMessage(reply, "bot");
+    }, 700);
+}
+
+function generateReply(message) {
+    message = message.toLowerCase();
+    conversationContext = message;
+
+    // Farmer
+    if (message.includes("farmer")) {
+        return "🌾 Farmers can:<br>• Record algae growth<br>• Generate CO₂ credits<br>• Sell eco-products in marketplace.";
+    }
+
+    // Credits
+    if (message.includes("credit")) {
+        return "🌍 CO₂ Credits are generated from algae growth.<br>Industries buy them to offset carbon emissions.";
+    }
+
+    // Industrial
+    if (message.includes("industry") || message.includes("industrial")) {
+        return "🏭 Industrialists can request and purchase verified carbon credits from farmers in their city.";
+    }
+
+    // Products
+    if (message.includes("product") || message.includes("buy")) {
+        return "🛒 Customers can browse algae-based eco products and securely purchase them via card or UPI.";
+    }
+
+    // ML
+    if (message.includes("ml") || message.includes("predict")) {
+        return "🤖 Farmers can use our ML model to predict algae growth based on nutrients and environment factors.";
+    }
+
+    // Signup
+    if (message.includes("signup") || message.includes("register")) {
+        return "📝 You can sign up as:<br>• Farmer<br>• Industrialist<br>• Customer";
+    }
+
+    // Login
+    if (message.includes("login")) {
+        return "🔐 Use your registered email and password to login from the respective login page.";
+    }
+
+    // Help
+    if (message.includes("help")) {
+        return "I'm here to help 🌿 Ask about farmers, credits, products, ML prediction, or signup.";
+    }
+
+    // Greeting
+    if (message.includes("hello") || message.includes("hi")) {
+        return "Hi there 👋 How can I assist you today?";
+    }
+
+    return "🌱 Interesting question! Try asking about credits, farmers, products, or ML prediction.";
+}
+</script>
+<!-- ================= END ADVANCED CHATBOT ================= -->
+
+</body>
+</html>

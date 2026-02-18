@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Purchases | CO2NECT</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+body { font-family: 'Poppins', sans-serif; }
+
+.fade-up {
+    animation: fadeUp 0.8s ease forwards;
+}
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+</style>
+
+</head>
+
+<body class="bg-gradient-to-br from-green-50 via-white to-green-100 min-h-screen">
+
+<!-- FLOATING NAVBAR -->
+<nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50
+    w-[92%] max-w-6xl
+    bg-white/70 backdrop-blur-2xl
+    rounded-2xl shadow-xl
+    border border-green-200">
+
+    <div class="px-8 py-4 flex justify-between items-center">
+
+        <h1 class="text-2xl font-extrabold
+            bg-gradient-to-r from-green-600 to-emerald-400
+            bg-clip-text text-transparent tracking-wide">
+            CO2NECT
+        </h1>
+
+        <div class="flex gap-4 text-sm md:text-base font-medium">
+            <a href="/consumer_dashboard"
+               class="px-4 py-2 rounded-full bg-blue-100 text-blue-700 hover:bg-blue-200 transition">
+               ← Dashboard
+            </a>
+
+            <a href="/"
+               class="px-4 py-2 rounded-full bg-red-100 text-red-600 hover:bg-red-200 transition">
+               Logout
+            </a>
+        </div>
+
+    </div>
+</nav>
+
+<!-- HEADER -->
+<section class="pt-40 text-center fade-up">
+    <h2 class="text-5xl font-extrabold text-green-700 mb-4">
+        My Purchases 🛍🌿
+    </h2>
+    <p class="text-gray-600 text-lg">
+        Track all your sustainable purchases.
+    </p>
+</section>
+
+<!-- PURCHASE CARD -->
+<div class="max-w-6xl mx-auto mt-12 p-10 rounded-3xl
+    bg-white/80 backdrop-blur-xl
+    shadow-2xl border border-green-200 fade-up">
+
+    {% if purchases|length == 0 %}
+
+    <!-- EMPTY STATE -->
+    <div class="text-center py-16">
+        <div class="text-6xl mb-4">📦</div>
+        <p class="text-xl text-gray-600">
+            You haven’t purchased anything yet.
+        </p>
+        <p class="text-gray-500 mt-2">
+            Start exploring eco-friendly products in the marketplace.
+        </p>
+    </div>
+
+    {% else %}
+
+    <div class="space-y-6">
+
+        {% for p in purchases %}
+        <div class="flex flex-col md:flex-row items-center justify-between
+            bg-white rounded-2xl shadow-md p-6 hover:shadow-xl transition">
+
+            <div class="flex items-center gap-6">
+
+                <img src="/static/products/{{ p.image }}"
+                     class="w-28 h-20 object-cover rounded-xl">
+
+                <div>
+                    <div class="text-xl font-semibold text-green-700">
+                        {{ p.product_name }}
+                    </div>
+
+                    <div class="text-gray-600 mt-1">
+                        Purchased on
+                        {{ p.created_at.strftime('%d-%m-%Y %I:%M %p') }}
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="mt-4 md:mt-0 text-xl font-bold text-green-800">
+                ₹{{ '%.2f'|format(p.price) }}
+            </div>
+
+        </div>
+        {% endfor %}
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+<!-- FOOTER -->
+<footer class="bg-gradient-to-br from-green-900 via-emerald-800 to-green-700 text-white text-center py-8 mt-24">
+    <p class="text-green-200">
+        © 2025 CO2NECT — Sustainable Carbon Marketplace
+    </p>
+</footer>
+
+</body>
+</html>

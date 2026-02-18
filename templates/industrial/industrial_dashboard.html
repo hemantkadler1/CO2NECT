@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Industrial Dashboard | CO2NECT</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+body { font-family: 'Poppins', sans-serif; }
+
+.fade-up {
+    animation: fadeUp 0.7s ease forwards;
+}
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+
+<body class="bg-gradient-to-br from-green-50 via-white to-green-100 min-h-screen">
+
+<!-- FLOATING NAVBAR -->
+<nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50
+    w-[92%] max-w-6xl
+    bg-white/70 backdrop-blur-2xl
+    rounded-2xl shadow-xl
+    border border-green-200">
+
+    <div class="px-8 py-4 flex justify-between items-center">
+
+        <h1 class="text-2xl font-extrabold
+            bg-gradient-to-r from-green-600 to-emerald-400
+            bg-clip-text text-transparent tracking-wide">
+            CO2NECT
+        </h1>
+
+        <div class="flex items-center gap-4 font-medium">
+
+            <span class="px-4 py-2 rounded-full bg-green-100 text-green-700 font-semibold">
+                🏢 {{ name }}
+            </span>
+
+            <a href="/"
+               class="px-4 py-2 rounded-full bg-red-100 text-red-600 hover:bg-red-200 transition">
+               Logout
+            </a>
+
+        </div>
+
+    </div>
+</nav>
+
+<!-- HEADER -->
+<section class="pt-40 text-center fade-up">
+    <h2 class="text-5xl font-extrabold text-green-700 mb-4">
+        Industrial Dashboard
+    </h2>
+    <p class="text-gray-600 text-lg">
+        Manage credit purchases, transactions, and sustainability impact.
+    </p>
+</section>
+
+<!-- TOTAL CREDITS CARD -->
+<div class="max-w-4xl mx-auto mt-12 px-6 fade-up">
+    <div class="bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl p-10 text-center">
+
+        <h3 class="text-2xl font-bold text-green-700 mb-4">
+            Total Credits Purchased
+        </h3>
+
+        <div id="creditCounter"
+             class="text-6xl font-extrabold text-green-800">
+            0
+        </div>
+
+        <p class="text-gray-500 mt-4">
+            Credits accumulated through verified farmer transactions
+        </p>
+
+    </div>
+</div>
+
+<!-- DASHBOARD GRID -->
+<div class="max-w-6xl mx-auto mt-16 px-6 grid grid-cols-1 md:grid-cols-3 gap-10 fade-up">
+
+    <!-- Manage Profile -->
+    <a href="/industrial/manage_profile"
+       class="bg-white/80 backdrop-blur-xl
+       rounded-3xl shadow-lg p-10 text-center
+       hover:shadow-2xl hover:-translate-y-2
+       transition duration-300">
+
+        <img src="static/images/456212.png" class="w-20 mx-auto mb-6">
+        <h3 class="text-xl font-bold text-green-700">
+            Manage Profile
+        </h3>
+        <p class="text-gray-600 mt-3 text-sm">
+            Update company & contact information
+        </p>
+    </a>
+
+    <!-- Request Credits -->
+    <a href="/industrial/request_credits"
+       class="bg-white/80 backdrop-blur-xl
+       rounded-3xl shadow-lg p-10 text-center
+       hover:shadow-2xl hover:-translate-y-2
+       transition duration-300">
+
+        <img src="static/images/684831.png" class="w-20 mx-auto mb-6">
+        <h3 class="text-xl font-bold text-green-700">
+            Request Credits
+        </h3>
+        <p class="text-gray-600 mt-3 text-sm">
+            Purchase CO₂ credits from verified farmers
+        </p>
+    </a>
+
+    <!-- Credit Transactions -->
+    <a href="/industrial/credit_transactions"
+       class="bg-white/80 backdrop-blur-xl
+       rounded-3xl shadow-lg p-10 text-center
+       hover:shadow-2xl hover:-translate-y-2
+       transition duration-300">
+
+        <img src="static/images/3281306.png" class="w-20 mx-auto mb-6">
+        <h3 class="text-xl font-bold text-green-700">
+            Credit Transactions
+        </h3>
+        <p class="text-gray-600 mt-3 text-sm">
+            View complete credit purchase history
+        </p>
+    </a>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="bg-gradient-to-br from-green-900 via-emerald-800 to-green-700 text-white text-center py-8 mt-24">
+    <p class="text-green-200">
+        © 2025 CO2NECT — Industrial Carbon Exchange
+    </p>
+</footer>
+
+<!-- COUNT-UP SCRIPT -->
+<script>
+let totalCredits = {{ total_credits }};
+let counter = document.getElementById("creditCounter");
+let count = 0;
+
+let speed = totalCredits < 50 ? 60 : 10;
+
+let interval = setInterval(() => {
+    if (count < totalCredits) {
+        count++;
+        counter.textContent = count;
+    } else {
+        clearInterval(interval);
+    }
+}, speed);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>My Cart | CO2NECT</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+body { font-family: 'Poppins', sans-serif; }
+
+.fade-up {
+    animation: fadeUp 0.7s ease forwards;
+}
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+</style>
+
+<script>
+function confirmRemove(id) {
+    if (confirm('Remove this item from cart?')) {
+        window.location.href = '/customer/remove_from_cart/' + id;
+    }
+}
+</script>
+
+</head>
+
+<body class="bg-gradient-to-br from-green-50 via-white to-green-100 min-h-screen">
+
+<!-- FLOATING NAVBAR -->
+<nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50
+    w-[92%] max-w-6xl
+    bg-white/70 backdrop-blur-2xl
+    rounded-2xl shadow-xl
+    border border-green-200">
+
+    <div class="px-8 py-4 flex justify-between items-center">
+
+        <h1 class="text-2xl font-extrabold
+            bg-gradient-to-r from-green-600 to-emerald-400
+            bg-clip-text text-transparent tracking-wide">
+            CO2NECT
+        </h1>
+
+        <div class="flex gap-4 font-medium">
+            <a href="/consumer_dashboard"
+               class="px-4 py-2 rounded-full bg-blue-100 text-blue-700 hover:bg-blue-200 transition">
+               ← Dashboard
+            </a>
+
+            <a href="/"
+               class="px-4 py-2 rounded-full bg-red-100 text-red-600 hover:bg-red-200 transition">
+               Logout
+            </a>
+        </div>
+
+    </div>
+</nav>
+
+<!-- HEADER -->
+<section class="pt-40 text-center fade-up">
+    <h2 class="text-5xl font-extrabold text-green-700 mb-4">
+        My Shopping Cart 🛒
+    </h2>
+    <p class="text-gray-600 text-lg">
+        Review your eco-friendly selections before checkout.
+    </p>
+</section>
+
+<!-- MAIN CART CONTAINER -->
+<div class="max-w-6xl mx-auto mt-12 px-6 fade-up">
+
+    {% if request.args.get('msg') == 'removed' %}
+    <div class="bg-yellow-100 text-yellow-700 p-4 rounded-xl mb-6 shadow text-center">
+        Item removed from cart.
+    </div>
+    {% endif %}
+
+    {% if items|length == 0 %}
+
+    <!-- EMPTY STATE -->
+    <div class="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl p-16 text-center">
+
+        <div class="text-7xl mb-6">🛍</div>
+        <h3 class="text-2xl font-bold text-green-700 mb-2">
+            Your cart is empty
+        </h3>
+        <p class="text-gray-500 mb-6">
+            Explore our sustainable marketplace and add products to your cart.
+        </p>
+
+        <a href="/customer/view_products"
+           class="inline-block px-8 py-3 rounded-full text-white font-semibold
+           bg-gradient-to-r from-green-600 to-emerald-500
+           hover:from-green-700 hover:to-emerald-600
+           shadow-md hover:shadow-xl transition">
+           Browse Products
+        </a>
+
+    </div>
+
+    {% else %}
+
+    <div class="grid lg:grid-cols-3 gap-10">
+
+        <!-- ITEMS LIST -->
+        <div class="lg:col-span-2 space-y-6">
+
+            {% for it in items %}
+            <div class="bg-white/80 backdrop-blur-xl rounded-3xl shadow-lg p-6
+                        hover:shadow-2xl transition duration-300 flex flex-col md:flex-row items-center justify-between">
+
+                <div class="flex items-center gap-6">
+
+                    <img src="/static/products/{{ it.image }}"
+                         class="w-32 h-24 object-cover rounded-2xl shadow">
+
+                    <div>
+                        <h4 class="text-xl font-bold text-green-700">
+                            {{ it.product_name }}
+                        </h4>
+                        <p class="text-gray-600 mt-2">
+                            ₹{{ '%.2f'|format(it.price) }}
+                        </p>
+                    </div>
+
+                </div>
+
+                <button onclick="confirmRemove({{ it.cart_id }})"
+                    class="mt-4 md:mt-0 px-6 py-3 rounded-full text-white font-semibold
+                    bg-gradient-to-r from-red-500 to-red-600
+                    hover:from-red-600 hover:to-red-700
+                    shadow-md hover:shadow-xl transition duration-300">
+                    Remove
+                </button>
+
+            </div>
+            {% endfor %}
+
+        </div>
+
+        <!-- SUMMARY CARD -->
+        <div class="bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl p-8 h-fit sticky top-40">
+
+            <h3 class="text-2xl font-bold text-green-700 mb-6">
+                Order Summary
+            </h3>
+
+            <div class="flex justify-between mb-4 text-gray-600">
+                <span>Items</span>
+                <span>{{ items|length }}</span>
+            </div>
+
+            <div class="flex justify-between mb-6 text-gray-600">
+                <span>Subtotal</span>
+                <span>₹{{ '%.2f'|format(total) }}</span>
+            </div>
+
+            <div class="border-t pt-6 flex justify-between items-center">
+                <span class="text-lg font-semibold text-gray-700">
+                    Total
+                </span>
+                <span class="text-3xl font-extrabold text-green-700">
+                    ₹{{ '%.2f'|format(total) }}
+                </span>
+            </div>
+
+            <a href="/customer/checkout"
+               class="mt-8 block w-full text-center py-4 rounded-full text-lg font-semibold text-white
+               bg-gradient-to-r from-green-600 to-emerald-500
+               hover:from-green-700 hover:to-emerald-600
+               shadow-lg hover:shadow-2xl transition duration-300">
+               Proceed to Checkout
+            </a>
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+<!-- FOOTER -->
+<footer class="bg-gradient-to-br from-green-900 via-emerald-800 to-green-700 text-white text-center py-8 mt-24">
+    <p class="text-green-200">
+        © 2025 CO2NECT — Sustainable Carbon Marketplace
+    </p>
+</footer>
+
+</body>
+</html>

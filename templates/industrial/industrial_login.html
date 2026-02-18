@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Industrialist Login | CO2NECT</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+body { font-family: 'Poppins', sans-serif; }
+
+.fade-up {
+    animation: fadeUp 0.7s ease forwards;
+}
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+
+<body class="bg-gradient-to-br from-green-50 via-white to-green-100 min-h-screen">
+
+<!-- FLOATING NAVBAR -->
+<nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50
+    w-[92%] max-w-6xl
+    bg-white/70 backdrop-blur-2xl
+    rounded-2xl shadow-xl
+    border border-green-200">
+
+    <div class="px-8 py-4 flex justify-between items-center">
+
+        <a href="/"
+           class="text-2xl font-extrabold
+           bg-gradient-to-r from-green-600 to-emerald-400
+           bg-clip-text text-transparent tracking-wide">
+            CO2NECT
+        </a>
+
+        <ul class="hidden md:flex space-x-8 text-gray-700 font-medium">
+            <li><a href="/" class="hover:text-green-600 transition">Home</a></li>
+            <li><a href="#" class="text-green-600 font-semibold">Login</a></li>
+            <li><a href="/farmer_signup" class="hover:text-green-600 transition">Farmer Signup</a></li>
+            <li><a href="/industrial_signup" class="hover:text-green-600 transition">Industrialist Signup</a></li>
+            <li><a href="/consumer_signup" class="hover:text-green-600 transition">Consumer Signup</a></li>
+        </ul>
+
+    </div>
+</nav>
+
+<!-- HEADER -->
+<section class="pt-40 text-center fade-up">
+    <h2 class="text-5xl font-extrabold text-green-700 mb-4">
+        Industrial Portal Login 🏢
+    </h2>
+    <p class="text-gray-600 text-lg">
+        Access your carbon credit management dashboard.
+    </p>
+</section>
+
+<!-- LOGIN CARD -->
+<div class="max-w-xl mx-auto mt-12 p-12 rounded-3xl
+    bg-white/80 backdrop-blur-xl
+    shadow-2xl border border-green-200 fade-up">
+
+    {% if message %}
+    <div class="bg-red-100 text-red-700 p-4 rounded-lg mb-6 text-center">
+        {{ message }}
+    </div>
+    {% endif %}
+
+    <form action="/industrial_login" method="POST" class="space-y-8">
+
+        <!-- EMAIL -->
+        <div>
+            <label class="block text-gray-700 font-semibold mb-2">Email</label>
+            <input type="email" name="email" required
+                class="w-full px-5 py-3 rounded-xl border border-gray-300
+                focus:ring-2 focus:ring-green-500 focus:border-green-500
+                transition outline-none shadow-sm">
+        </div>
+
+        <!-- PASSWORD -->
+        <div>
+            <label class="block text-gray-700 font-semibold mb-2">Password</label>
+            <div class="relative">
+                <input type="password" id="password" name="password" required
+                    class="w-full px-5 py-3 rounded-xl border border-gray-300
+                    focus:ring-2 focus:ring-green-500 focus:border-green-500
+                    transition outline-none shadow-sm pr-12">
+
+                <button type="button"
+                        onclick="togglePassword()"
+                        class="absolute right-4 top-3 text-gray-500 hover:text-green-600 transition">
+                    👁
+                </button>
+            </div>
+        </div>
+
+        <!-- LOGIN BUTTON -->
+        <div class="pt-4 text-center">
+            <button type="submit"
+                class="w-full py-4 rounded-full text-lg font-semibold text-white
+                bg-gradient-to-r from-green-600 to-emerald-500
+                hover:from-green-700 hover:to-emerald-600
+                shadow-lg hover:shadow-2xl transition duration-300">
+                Login to Dashboard
+            </button>
+        </div>
+
+    </form>
+
+    <!-- SIGNUP LINK -->
+    <div class="text-center mt-8 text-gray-600">
+        Don't have an industrial account?
+        <a href="/industrial_signup"
+           class="text-green-700 font-semibold hover:underline">
+           Create One
+        </a>
+    </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="bg-gradient-to-br from-green-900 via-emerald-800 to-green-700 text-white text-center py-8 mt-24">
+    <p class="text-green-200">
+        © 2025 CO2NECT — Industrial Carbon Exchange
+    </p>
+</footer>
+
+<!-- PASSWORD TOGGLE -->
+<script>
+function togglePassword() {
+    const input = document.getElementById("password");
+    input.type = input.type === "password" ? "text" : "password";
+}
+</script>
+
+</body>
+</html>

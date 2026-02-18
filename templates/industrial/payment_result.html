@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Payment Result | CO2NECT</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+body { font-family: 'Poppins', sans-serif; }
+
+.fade-up {
+    animation: fadeUp 0.8s ease forwards;
+}
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.spinner {
+    border: 6px solid #e5e7eb;
+    border-top: 6px solid #16a34a;
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0); }
+    100% { transform: rotate(360deg); }
+}
+</style>
+
+</head>
+
+<body class="bg-gradient-to-br from-green-50 via-white to-green-100 min-h-screen flex items-center justify-center">
+
+<div class="w-full max-w-2xl px-6">
+
+    <!-- PROCESSING CARD -->
+    <div id="processing"
+        class="bg-white/80 backdrop-blur-xl p-12 rounded-3xl shadow-2xl border border-green-200 text-center fade-up">
+
+        <div class="spinner mx-auto"></div>
+
+        <h3 class="text-3xl font-bold text-green-700 mt-8">
+            Processing Payment...
+        </h3>
+
+        <p class="text-gray-600 mt-3 text-lg">
+            Please wait while we securely complete your transaction.
+        </p>
+    </div>
+
+    <!-- RESULT CARD -->
+    <div id="success"
+        style="display:none"
+        class="bg-white/90 backdrop-blur-xl p-12 rounded-3xl shadow-2xl border border-green-200 mt-8 text-center fade-up">
+
+        {% if status == "success" %}
+
+        <div class="text-6xl mb-6">✅</div>
+
+        <h3 class="text-3xl font-extrabold text-green-700">
+            Payment Successful!
+        </h3>
+
+        <div class="mt-8 space-y-3 text-lg text-gray-700">
+            <p>Credits Purchased: <span class="font-bold text-green-800">{{ credits }}</span></p>
+            <p>Amount Paid: <span class="font-bold text-green-800">₹{{ amount }}</span></p>
+            <p>Payment Method: <span class="font-bold text-green-800 capitalize">{{ transaction_type }}</span></p>
+        </div>
+
+        <div class="mt-10 flex flex-col sm:flex-row justify-center gap-4">
+
+            <a href="/industrial/credit_transactions"
+               class="px-10 py-3 rounded-full text-white font-semibold
+               bg-gradient-to-r from-green-600 to-emerald-500
+               hover:from-green-700 hover:to-emerald-600
+               shadow-lg hover:shadow-2xl transition duration-300">
+               View Transactions
+            </a>
+
+            <a href="/industrial_dashboard"
+               class="px-10 py-3 rounded-full font-semibold
+               border-2 border-green-600 text-green-700
+               hover:bg-green-600 hover:text-white
+               transition duration-300 shadow-md hover:shadow-xl">
+               Back to Dashboard
+            </a>
+
+        </div>
+
+        {% else %}
+
+        <div class="text-6xl mb-6">❌</div>
+
+        <h3 class="text-3xl font-extrabold text-red-600">
+            Payment Failed
+        </h3>
+
+        <p class="mt-6 text-gray-700 text-lg">
+            {{ error }}
+        </p>
+
+        <div class="mt-8">
+            <a href="/industrial_dashboard"
+               class="px-10 py-3 rounded-full text-white font-semibold
+               bg-red-600 hover:bg-red-700
+               shadow-lg hover:shadow-2xl transition duration-300">
+               Return to Dashboard
+            </a>
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+<script>
+setTimeout(() => {
+    document.getElementById('processing').style.display = 'none';
+    document.getElementById('success').style.display = 'block';
+}, 2000);
+</script>
+
+</body>
+
+</html>

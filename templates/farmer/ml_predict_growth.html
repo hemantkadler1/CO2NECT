@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ML Predict Growth | CO2NECT</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+body { font-family: 'Poppins', sans-serif; }
+
+.fade-up {
+    animation: fadeUp 0.8s ease forwards;
+}
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+</style>
+
+</head>
+
+<body class="bg-gradient-to-br from-green-50 via-white to-green-100 min-h-screen">
+
+<!-- FLOATING NAVBAR -->
+<nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50
+    w-[92%] max-w-6xl
+    bg-white/70 backdrop-blur-2xl
+    rounded-2xl shadow-xl
+    border border-green-200">
+
+    <div class="px-8 py-4 flex items-center justify-between">
+
+        <h1 class="text-2xl font-extrabold
+            bg-gradient-to-r from-green-600 to-emerald-400
+            bg-clip-text text-transparent tracking-wide">
+            CO2NECT
+        </h1>
+
+        <div class="flex space-x-4 text-sm md:text-base font-medium">
+            <a href="/farmer_dashboard"
+               class="px-4 py-2 rounded-full bg-blue-100 text-blue-700 hover:bg-blue-200 transition">
+               ← Dashboard
+            </a>
+
+            <a href="/"
+               class="px-4 py-2 rounded-full bg-red-100 text-red-600 hover:bg-red-200 transition">
+               Logout
+            </a>
+        </div>
+
+    </div>
+</nav>
+
+<!-- HEADER -->
+<section class="pt-40 text-center fade-up">
+    <h2 class="text-5xl font-extrabold text-green-700 mb-4">
+        AI Growth Prediction 🤖🌿
+    </h2>
+    <p class="text-gray-600 text-lg">
+        Enter environmental parameters to predict algae growth using ML.
+    </p>
+</section>
+
+<!-- FORM CARD -->
+<div class="max-w-4xl mx-auto mt-12 p-12 rounded-3xl
+    bg-white/80 backdrop-blur-xl
+    shadow-2xl border border-green-200 fade-up">
+
+    <form action="/farmer/ml_predict_growth" method="POST"
+          class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+        <!-- INPUT FIELDS -->
+        <div>
+            <label class="block text-gray-700 font-semibold mb-2">Light</label>
+            <input type="number" step="0.01" name="light" required
+                value="{{ form_data.light }}"
+                class="w-full px-5 py-3 rounded-xl border border-gray-300
+                focus:ring-2 focus:ring-green-500 focus:border-green-500
+                transition outline-none shadow-sm">
+        </div>
+
+        <div>
+            <label class="block text-gray-700 font-semibold mb-2">Nitrate</label>
+            <input type="number" step="0.01" name="nitrate" required
+                value="{{ form_data.nitrate }}"
+                class="w-full px-5 py-3 rounded-xl border border-gray-300
+                focus:ring-2 focus:ring-green-500 focus:border-green-500
+                transition outline-none shadow-sm">
+        </div>
+
+        <div>
+            <label class="block text-gray-700 font-semibold mb-2">Iron</label>
+            <input type="number" step="0.01" name="iron" required
+                value="{{ form_data.iron }}"
+                class="w-full px-5 py-3 rounded-xl border border-gray-300
+                focus:ring-2 focus:ring-green-500 focus:border-green-500
+                transition outline-none shadow-sm">
+        </div>
+
+        <div>
+            <label class="block text-gray-700 font-semibold mb-2">Phosphate</label>
+            <input type="number" step="0.01" name="phosphate" required
+                value="{{ form_data.phosphate }}"
+                class="w-full px-5 py-3 rounded-xl border border-gray-300
+                focus:ring-2 focus:ring-green-500 focus:border-green-500
+                transition outline-none shadow-sm">
+        </div>
+
+        <div>
+            <label class="block text-gray-700 font-semibold mb-2">Temperature</label>
+            <input type="number" step="0.01" name="temperature" required
+                value="{{ form_data.temperature }}"
+                class="w-full px-5 py-3 rounded-xl border border-gray-300
+                focus:ring-2 focus:ring-green-500 focus:border-green-500
+                transition outline-none shadow-sm">
+        </div>
+
+        <div>
+            <label class="block text-gray-700 font-semibold mb-2">pH</label>
+            <input type="number" step="0.01" name="ph" required
+                value="{{ form_data.ph }}"
+                class="w-full px-5 py-3 rounded-xl border border-gray-300
+                focus:ring-2 focus:ring-green-500 focus:border-green-500
+                transition outline-none shadow-sm">
+        </div>
+
+        <div>
+            <label class="block text-gray-700 font-semibold mb-2">CO₂</label>
+            <input type="number" step="0.01" name="co2" required
+                value="{{ form_data.co2 }}"
+                class="w-full px-5 py-3 rounded-xl border border-gray-300
+                focus:ring-2 focus:ring-green-500 focus:border-green-500
+                transition outline-none shadow-sm">
+        </div>
+
+        <!-- BUTTONS -->
+        <div class="md:col-span-2 flex justify-center gap-6 pt-4">
+
+            <button name="predict" type="submit"
+                class="px-14 py-4 rounded-full text-lg font-semibold text-white
+                bg-gradient-to-r from-green-600 to-emerald-500
+                hover:from-green-700 hover:to-emerald-600
+                shadow-lg hover:shadow-2xl transition duration-300">
+                Predict
+            </button>
+
+            <button name="reset" type="submit"
+                class="px-14 py-4 rounded-full text-lg font-semibold text-white
+                bg-gradient-to-r from-gray-500 to-gray-600
+                hover:from-gray-600 hover:to-gray-700
+                shadow-md hover:shadow-xl transition duration-300">
+                Reset
+            </button>
+
+        </div>
+
+    </form>
+
+    <!-- RESULT CARD -->
+    {% if result %}
+    <div class="mt-12 p-8 rounded-2xl
+        bg-gradient-to-r from-green-100 to-green-50
+        border border-green-300 shadow-lg">
+
+        <h3 class="text-2xl font-bold text-green-700">
+            Prediction Result 📊
+        </h3>
+
+        <p class="text-gray-800 mt-4 text-xl">
+            Predicted Algae Growth:
+            <span class="font-extrabold text-green-800">
+                {{ result }}
+            </span>
+        </p>
+
+    </div>
+    {% endif %}
+
+</div>
+
+<!-- FOOTER -->
+<footer class="bg-gradient-to-br from-green-900 via-emerald-800 to-green-700 text-white text-center py-8 mt-20">
+    <p class="text-green-200">
+        © 2025 CO2NECT — AI Powered Sustainable Platform
+    </p>
+</footer>
+
+</body>
+</html>
